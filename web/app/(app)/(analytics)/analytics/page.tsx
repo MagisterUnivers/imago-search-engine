@@ -2,6 +2,8 @@ import { Section } from "@/components/Sections/Section";
 import { AnalyticsShowdown } from "@/components/Showdowns/AnalyticsShowdown";
 import { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const generateMetadata = async (): Promise<Metadata> => {
   return {
     title: "Analytics",
