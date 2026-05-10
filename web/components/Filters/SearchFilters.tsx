@@ -87,9 +87,9 @@ export const SearchFilters = ({
   restrictions = MOCK_RESTRICTIONS,
 }: Props) => {
   // Separate local value so the input stays responsive while debounce waits
-  const [inputValue, setInputValue] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [inputValue, setInputValue] = useState(searchParams.get("q") ?? "");
   const [filters, setFilters] = useState<SearchFiltersState>({
     query: searchParams.get("q") ?? "",
     credit: searchParams.get("credit") ?? "",
