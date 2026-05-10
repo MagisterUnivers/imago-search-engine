@@ -53,7 +53,7 @@ npm run start
 ### Docker
 
 ```bash
-docker-compose up --build
+npm run docker:run
 ```
 
 ---
