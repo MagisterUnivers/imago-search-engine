@@ -49,6 +49,8 @@ import { SCORE } from "@/constants/search-scores";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
+import { STOP_WORDS } from "@/constants/stop-words";
+
 /**
  * Tokenizes a search query the same way we tokenize items.
  * Keeps dots (for "j.morris" style queries), lowercases, splits on whitespace.
@@ -58,7 +60,7 @@ function tokenizeQuery(query: string): string[] {
     .toLowerCase()
     .replace(/[^a-z0-9\s.]/g, " ")
     .split(/\s+/)
-    .filter((t) => t.length >= 2);
+    .filter((t) => t.length >= 2 && !STOP_WORDS.has(t));
 }
 
 /**
@@ -82,7 +84,7 @@ function getCandidateIds(queryTokens: string[]): Set<number> | null {
     // Exact index lookup
     const exact = invertedIndex.get(token);
     if (exact) {
-      exact.forEach((id) => result.add(id)); // changed
+      exact.forEach((id) => result.add(id));
     }
 
     // Prefix scan — necessary for partial queries like "manch" → "manchester"
@@ -92,7 +94,7 @@ function getCandidateIds(queryTokens: string[]): Set<number> | null {
       if (indexedToken !== token && indexedToken.startsWith(token)) {
         ids.forEach((id) => result.add(id));
       }
-    }); // changed
+    });
   }
 
   return result;

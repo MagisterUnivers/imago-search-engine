@@ -34,8 +34,8 @@ export const ContentShowdown = async ({ searchParams }: Props) => {
   if (results.items.length === 0) {
     return (
       <EmptyShowdown
-        title="No content yet"
-        description="Wait till we add some content or upload your own content for a people to see."
+        title="No results found"
+        description="Try adjusting your search terms or filters to find what you're looking for."
       />
     );
   }

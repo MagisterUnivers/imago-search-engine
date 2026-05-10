@@ -34,29 +34,6 @@ import { SortOrder } from "@/types/search-layer";
 import { FilterOption } from "@/lib/preprocessor";
 import { toast } from "react-toastify";
 
-const MOCK_CREDITS = [
-  {
-    label: "IMAGO / United Archives International",
-    value: "IMAGO / United Archives International",
-  },
-  { label: "IMAGO / teutopress", value: "IMAGO / teutopress" },
-  { label: "IMAGO / ZUMA Press", value: "IMAGO / ZUMA Press" },
-  { label: "IMAGO / ABACAPRESS", value: "IMAGO / ABACAPRESS" },
-  { label: "IMAGO / Sportimage", value: "IMAGO / Sportimage" },
-];
-
-// Extracted by preprocessor via /\b[A-Z]{2,}(?:x[A-Z]{2,})+\b/g
-const MOCK_RESTRICTIONS = [
-  {
-    label: "PUBLICATIONxINxGERxSUIxAUTxONLY",
-    value: "PUBLICATIONxINxGERxSUIxAUTxONLY",
-  },
-  { label: "NOxMEXxEUROPE", value: "NOxMEXxEUROPE" },
-  { label: "NOxMEXxARG", value: "NOxMEXxARG" },
-  { label: "DISTRIBUTIONxEUROPE", value: "DISTRIBUTIONxEUROPE" },
-  { label: "EDITORIALxUSExONLY", value: "EDITORIALxUSExONLY" },
-];
-
 export interface SearchFiltersState {
   query: string;
   credit: string; // fotografen exact match; "" = all
@@ -67,7 +44,7 @@ export interface SearchFiltersState {
 }
 
 interface Props {
-  /** Fired immediately on filter/sort change; debounced 2s on query change */
+  /** Fired immediately on filter/sort change; debounced 500ms on query change */
   /** Pass real values from preprocessed data */
   credits: readonly FilterOption[];
   restrictions: readonly FilterOption[];
@@ -82,10 +59,7 @@ const DEFAULT_STATE: SearchFiltersState = {
   sortOrder: "none",
 };
 
-export const SearchFilters = ({
-  credits = MOCK_CREDITS,
-  restrictions = MOCK_RESTRICTIONS,
-}: Props) => {
+export const SearchFilters = ({ credits, restrictions }: Props) => {
   // Separate local value so the input stays responsive while debounce waits
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -127,12 +101,12 @@ export const SearchFilters = ({
     [filters, router, searchParams],
   );
 
-  // Debounced 2000ms — only for the free-text search input.
+  // Debounced 500ms — only for the free-text search input.
   // useDebouncedCallback resets the timer on every new keystroke automatically.
   const debouncedQuery = useDebouncedCallback((value: string) => {
     pushToURL({ query: value });
     toast.success("Search query updated", { autoClose: 1000 });
-  }, 2000);
+  }, 500);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -157,7 +131,7 @@ export const SearchFilters = ({
   return (
     <div className="flex flex-col gap-3 w-full">
       <div className="flex items-center gap-3 flex-wrap">
-        {/* Search — debounced 2s */}
+        {/* Search — debounced 500ms */}
         <div className="relative flex-1 min-w-64">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
           <Input

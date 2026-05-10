@@ -74,6 +74,10 @@ docker-compose up --build
 
 ---
 
+### Vercel - Demo
+
+https://imago-search-engine.vercel.app/
+
 ## License
 
 MIT

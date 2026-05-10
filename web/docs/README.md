@@ -8,7 +8,7 @@ Next.js UI — all without an external search engine or database.
 
 ## Documentation
 
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** — Architecture overview, search strategy, scaling plan, trade-offs
+- **[ARCHITECTURE.md](./Architecture.md)** — Architecture overview, search strategy, scaling plan, trade-offs
 
 ---
 
@@ -117,7 +117,7 @@ All filter/sort/pagination state lives in the URL query string. Benefits:
 - Server Components receive parameters directly via `searchParams`
 
 `SearchFilters` is the only Client Component — it writes to the URL via `router.replace()` with
-`{ scroll: false }`. The 2-second debounce on the text input prevents excessive navigations while
+`{ scroll: false }`. The 500ms debounce on the text input prevents excessive navigations while
 typing; all other controls trigger immediately.
 
 ### Server Components + Suspense

@@ -52,43 +52,8 @@ const ARCHIVE_REF_RE = /\bUnitedArchives\w+\b/;
  * Stop words: tokens that add no search value.
  * Kept minimal — over-filtering reduces recall.
  */
-const STOP_WORDS = new Set([
-  "the",
-  "a",
-  "an",
-  "and",
-  "or",
-  "of",
-  "in",
-  "on",
-  "at",
-  "to",
-  "for",
-  "is",
-  "it",
-  "its",
-  "as",
-  "by",
-  "be",
-  "this",
-  "that",
-  "her",
-  "his",
-  "their",
-  "our",
-  "with",
-  "from",
-  "was",
-  "were",
-  "im",
-  "in",
-  "am",
-  "pm",
-  "th",
-  "st",
-  "nd",
-  "rd", // ordinal suffixes
-]);
+
+import { STOP_WORDS } from "@/constants/stop-words";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
